@@ -42,10 +42,13 @@ app.post('/api/upload/nodes/:id/children', function (req, res, next) {
     upload(req,res,function(err){
       console.log(req.file)
       if(err){
-        res.json({error_code:1,err_desc:err});
+        res.json({error_code:1,err_desc:err, file: null});
         return;
       }
-      res.json({error_code:0,err_desc:null});
+      res.json({error_code:0,err_desc:null, file: {
+        name: req.file.originalname,
+        guid: req.file.filename
+      }});
     });
     }
   );
